@@ -119,3 +119,52 @@
   </script>
 </body>
 </html>
+```javascript
+// Add input validation and error handling
+function validateInput(qrContent) {
+  if (qrContent === "") {
+    alert("Please enter a valid text or URL.");
+    return false;
+  }
+  return true;
+}
+
+// Add a function to clear the QR code container
+function clearQrCodeContainer() {
+  qrCodeContainer.innerHTML = "";
+}
+
+// Add a function to display an error message
+function displayError(message) {
+  const errorMessage = document.createElement("p");
+  errorMessage.textContent = message;
+  errorMessage.style.color = "red";
+  qrCodeContainer.appendChild(errorMessage);
+}
+
+// Modify the generateQrCode function to handle errors
+function generateQrCode(qrContent) {
+  try {
+    return new QRCode(qrCodeContainer, {
+      text: qrContent,
+      width: 256,
+      height: 256,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+  } catch (error) {
+    displayError("Error generating QR code: " + error.message);
+  }
+}
+
+// Modify the event listener to handle form submission
+qrGenerationForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const qrContent = qrContentInput.value.trim();
+  clearQrCodeContainer();
+  if (validateInput(qrContent)) {
+    qrCode = generateQrCode(qrContent);
+  }
+});
+```
