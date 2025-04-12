@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #2fb5eb;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #9ea2ac;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #05224d;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #308cf5;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      background-color: #308cf5;
+      color: rgb(255, 255, 255);
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color:  #2477d7;
+    }
+
+    #qr-code {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>QR Code Generator</h1>
+    <p>Enter text or URL to create a QR Code</p>
+    <form id="qr-generation-form">
+      <input type="text" id="qr-content" placeholder="Enter content..." autocomplete="off" />
+      <input type="submit" value="Generate QR Code" />
+    </form>
+    <div id="qr-code"></div>
+  </div>
+
+  <script>
+    const qrContentInput = document.getElementById("qr-content");
+    const qrGenerationForm = document.getElementById("qr-generation-form");
+    const qrCodeContainer = document.getElementById("qr-code");
+
+    let qrCode;
+
+    function generateQrCode(qrContent) {
+      return new QRCode(qrCodeContainer, {
+        text: qrContent,
+        width: 256,
+        height: 256,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+    }
+
+    qrGenerationForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const qrContent = qrContentInput.value.trim();
+      qrCodeContainer.innerHTML = ""; // Clear previous QR
+      if (qrContent !== "") {
+        qrCode = generateQrCode(qrContent);
+      }
+    });
+  </script>
+</body>
+</html>
