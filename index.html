@@ -35,10 +35,11 @@
       margin-bottom: 10px;
     }
 
-    p {
+    h4 {
       color: #9ea2ac;
       margin-bottom: 16px;
       font-size: 14px;
+      font-weight: 500;
     }
 
     input[type="text"] {
@@ -76,46 +77,26 @@
       display: flex;
       justify-content: center;
     }
+    #qr-link:hover {
+  text-decoration: underline;
+  color: #1d5bbf;
+}
   </style>
 </head>
 
 <body>
   <div class="container">
     <h1>QR Code Generator</h1>
-    <p>Enter text or URL to create a QR Code</p>
+    <h4>Enter text or URL to create a QR Code</h4>
     <form id="qr-generation-form">
       <input type="text" id="qr-content" placeholder="Enter content..." autocomplete="off" />
       <input type="submit" value="Generate QR Code" />
     </form>
     <div id="qr-code"></div>
+    <a id="qr-link" href="#" target="_blank" style="display:none; margin-top: 10px; color: #308cf5; text-decoration: none;" title=""></a>
+    
   </div>
 
-  <script>
-    const qrContentInput = document.getElementById("qr-content");
-    const qrGenerationForm = document.getElementById("qr-generation-form");
-    const qrCodeContainer = document.getElementById("qr-code");
-
-    let qrCode;
-
-    function generateQrCode(qrContent) {
-      return new QRCode(qrCodeContainer, {
-        text: qrContent,
-        width: 256,
-        height: 256,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H,
-      });
-    }
-
-    qrGenerationForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      const qrContent = qrContentInput.value.trim();
-      qrCodeContainer.innerHTML = ""; // Clear previous QR
-      if (qrContent !== "") {
-        qrCode = generateQrCode(qrContent);
-      }
-    });
-  </script>
+  <script src="index.js"></script>
 </body>
 </html>
